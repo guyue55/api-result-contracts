@@ -1,0 +1,26 @@
+# 环境、秘密及本机状态
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+node_modules/
+dist/
+build/
+runtime/
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

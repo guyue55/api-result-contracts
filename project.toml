@@ -1,0 +1,5 @@
+[project]
+name = "api-result-contracts"
+owner = "guyue55"
+kind = "library"
+description = "独立强类型接口契约库"

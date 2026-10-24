@@ -1,0 +1,7 @@
+#!/bin/sh
+# 本仓库的中文提交约定。
+if command -v python3 >/dev/null 2>&1; then exec python3 scripts/check.py --message-file "$1"; fi
+if command -v python >/dev/null 2>&1; then exec python scripts/check.py --message-file "$1"; fi
+if command -v py >/dev/null 2>&1; then exec py -3 scripts/check.py --message-file "$1"; fi
+echo '缺少Python，无法验证提交格式。' >&2
+exit 2

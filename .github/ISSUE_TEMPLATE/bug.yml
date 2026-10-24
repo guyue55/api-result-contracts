@@ -1,0 +1,14 @@
+name: 缺陷报告
+description: 提供脱敏的最小复现
+body:
+  - type: markdown
+    attributes:
+      value: 安全漏洞请使用 Security 私密报告，不填写凭证或客户资料。
+  - type: input
+    id: version
+    attributes: {label: 版本与环境}
+    validations: {required: true}
+  - type: textarea
+    id: reproduction
+    attributes: {label: 合成最小复现、预期与实际结果}
+    validations: {required: true}

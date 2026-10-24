@@ -1,0 +1,7 @@
+#!/bin/sh
+# 仅检查暂存树；不修改文件、不安装依赖。
+if command -v python3 >/dev/null 2>&1; then exec python3 scripts/check.py --staged; fi
+if command -v python >/dev/null 2>&1; then exec python scripts/check.py --staged; fi
+if command -v py >/dev/null 2>&1; then exec py -3 scripts/check.py --staged; fi
+echo '缺少Python，请按CONTRIBUTING.md准备环境，不能跳过检查。' >&2
+exit 2

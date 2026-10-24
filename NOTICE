@@ -1,0 +1,11 @@
+API Result Contracts
+Copyright 2026 The project contributors
+Source: https://github.com/guyue55/api-result-contracts
+
+Extracted from the Apache-2.0 licensed Enterprise AI Office Template:
+https://github.com/guyue55/ai-office-example/tree/94942ceb68d9238187be74c319cdabea9f4b9463/packages/api-contracts
+Copyright 2026 The project contributors
+The original license and attribution are retained. This project distributes
+only the contract library; no office server, client, skills or customer data.
+Third-party dependencies retain their respective licenses and notices.
+No rights to trademarks are granted by this license.

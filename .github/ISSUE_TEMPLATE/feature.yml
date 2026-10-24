@@ -1,0 +1,11 @@
+name: 能力建议
+description: 对齐问题与边界，避免冗余功能
+body:
+  - type: textarea
+    id: need
+    attributes: {label: 当前遇到的问题、现有能力为何不足}
+    validations: {required: true}
+  - type: textarea
+    id: scope
+    attributes: {label: 建议行为、验收方法及不做的范围}
+    validations: {required: true}
