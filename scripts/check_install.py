@@ -87,16 +87,16 @@ def minimum_constraints(requirements):
 
 
 def probe(python, cwd, extras, version):
-    code = f"""import importlib.metadata, importlib.resources, importlib.util, json
+    code = f"""import importlib.metadata, importlib.resources, importlib.util, json, sys
 from pathlib import Path
 import api_result_contracts as package
 from api_result_contracts import Meta, Success, encode, make_registry
 assert importlib.metadata.version("api-result-contracts") == {version!r}
 assert b'"code":0' in encode(Success[int](data=12, meta=Meta(trace_id="probe")), Success[int])
 assert make_registry("probe").export()
-assert json.loads(importlib.resources.files(package).joinpath("core_codes.json").read_text())
+assert json.loads(importlib.resources.files(package).joinpath("core_codes.json").read_text(encoding="utf-8"))
 assert importlib.resources.files(package).joinpath("py.typed").is_file()
-assert Path(package.__file__).is_relative_to(Path({str(python.parent.parent)!r}))
+assert Path(package.__file__).resolve().is_relative_to(Path(sys.prefix).resolve())
 """
     if not extras:
         code += (

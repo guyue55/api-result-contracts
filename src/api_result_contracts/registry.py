@@ -178,7 +178,9 @@ class CodeRegistry:
 
 
 def make_registry(application_id: str, specs=()) -> CodeRegistry:
-    rows = json.loads(files("api_result_contracts").joinpath("core_codes.json").read_text())
+    rows = json.loads(
+        files("api_result_contracts").joinpath("core_codes.json").read_text(encoding="utf-8")
+    )
     return CodeRegistry(application_id, (*specs_from_rows(rows), *specs)).freeze()
 
 
