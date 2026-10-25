@@ -151,3 +151,16 @@ def test_root_model_keeps_actual_wire_shape():
 
     prepared = prepare_success(Identifiers((1, 2)), Identifiers, Meta(trace_id="t"))
     assert decode(prepared.body, Success[Identifiers]).data.root == (1, 2)
+
+
+def test_registry_reads_utf8_without_environment_override(monkeypatch):
+    # 模拟Windows旧默认编码；不依赖CI设置PYTHONUTF8掩盖资源读取缺陷。
+    from pathlib import Path
+
+    original = Path.read_text
+
+    def legacy_read(path, encoding=None, errors=None):
+        return original(path, encoding=encoding or "cp1252", errors=errors)
+
+    monkeypatch.setattr(Path, "read_text", legacy_read)
+    assert make_registry("legacy-locale").export()

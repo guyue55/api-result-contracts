@@ -121,9 +121,19 @@ def validate(files):
     if "releases/v" + version + ".md" not in files:
         raise ValueError("缺少当前版本发布说明")
     if config["kind"] == "library":
-        project = tomllib.loads(files["pyproject.toml"].decode())["project"]
-        if project["version"] != version or project["name"] != config["name"]:
-            raise ValueError("Python包与仓库版本／名称不一致")
+        metadata = tomllib.loads(files["pyproject.toml"].decode())
+        project = metadata["project"]
+        source = metadata["tool"]["hatch"]["version"]
+        if (
+            project["name"] != config["name"]
+            or project.get("dynamic") != ["version"]
+            or "version" in project
+            or source.get("path") != "VERSION"
+        ):
+            raise ValueError("Python包名称或单一版本来源无效")
+        matched = re.fullmatch(source["pattern"], files["VERSION"].decode())
+        if not matched or matched.group("version") != version:
+            raise ValueError("构建后端无法从VERSION读取一致版本")
     for name, data in files.items():
         p = Path(name)
         if p.name.startswith(".env") and p.name != ".env.example":

@@ -12,7 +12,13 @@ uv run pytest -q
 uv run ruff check .
 uv run ruff format --check .
 uv run mypy src tests/typing --check-untyped-defs
+uv build
+uv run twine check --strict dist/api_result_contracts-*-py3-none-any.whl dist/api_result_contracts-*.tar.gz
+uv run python scripts/check_install.py --rebuild-sdist
+uv run python scripts/check_install.py --minimum
 ```
+
+命令中的通配符示例按 Bash 执行；其他 Shell 可改用确切文件名。dist 中不要混入旧版本资产。VERSION 是唯一手写版本来源；运行时版本查询使用 importlib.metadata.version("api-result-contracts")。消费方无需安装 uv，只需标准 Python 包安装工具。
 
 检查不能替代代码审查。新增行为应有有意义的正负验证；纯文字修改核对链接与说明，不为它启动无关服务。锁定依赖、源码测试、隔离安装、远程 CI 和目标环境证据分开。
 

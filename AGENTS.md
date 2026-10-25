@@ -4,7 +4,7 @@
 
 本仓库是独立 Python 接口契约库，核心只依赖 Pydantic，FastAPI／HTTPX／MCP 为可选适配。保持 api_result_contracts 导入与协议兼容；不引入办公服务、账号、数据库或行业规则。
 
-先读 README.md、CONTRIBUTING.md；安全读 SECURITY.md，发布读 docs/OPERATIONS.md。公开仓库标识在 project.toml，版本在 VERSION；Python 包版本在 pyproject.toml，必须与 VERSION 一致。 AGENTS.md 是协作规则，不是权限隔离或沙箱；未支持此文件的 AI 工具需由用户显式提供。
+先读 README.md、CONTRIBUTING.md；安全读 SECURITY.md，发布读 docs/OPERATIONS.md。公开仓库标识在 project.toml，版本在 VERSION；Python 包通过 Hatchling 从 VERSION 派生版本，禁止另写静态版本。 AGENTS.md 是协作规则，不是权限隔离或沙箱；未支持此文件的 AI 工具需由用户显式提供。
 
 ## 行为与安全红线
 
@@ -21,7 +21,7 @@
 
 ## 开发与提交
 
-安装：`uv sync --frozen --all-extras`。检查：`uv run python scripts/check.py`；完整质量命令见 CONTRIBUTING.md。
+安装：`uv sync --frozen --all-extras`。检查：`uv run python scripts/check.py`；完整质量命令见 CONTRIBUTING.md；第三方库维护与发行包验证见 docs/PACKAGING.md。
 
 提交前审阅 `git diff` 和 `git diff --cached`、运行相关测试与仓库检查。只暂存明确文件，不用 `git add .` 混入无关工作。提交格式必须为 `type(scope): 中文说明`，例如 `fix(validation): 拒绝重复参数`；代码注释使用中文。可选本地 hooks 需用户／维护者主动启用，CI 仍是必需检查。
 
