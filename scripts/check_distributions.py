@@ -88,11 +88,11 @@ def compare_wheels(first, second):
                     line for line in result[name].splitlines() if not line.startswith(b"Generator:")
                 )
             elif name.endswith(".dist-info/METADATA"):
-                result[name] = b"\n".join(
-                    line
-                    for line in result[name].splitlines()
-                    if not line.startswith(b"Metadata-Version:")
-                )
+                # 只归一化首行版本声明，README正文中的同名文本仍必须一致。
+                header, separator, body = result[name].partition(b"\n")
+                if not separator or not header.startswith(b"Metadata-Version:"):
+                    raise ValueError("METADATA首行不是已知格式")
+                result[name] = body
         return result
 
     if normalized(first) != normalized(second):

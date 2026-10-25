@@ -19,8 +19,8 @@ from check_install import minimum_constraints
 
 def wheel(path, *, metadata_version="2.5", dependency=None, missing=None, corrupt=False):
     root = check.ROOT
-    config = tomllib.loads((root / "pyproject.toml").read_text())["project"]
-    version = (root / "VERSION").read_text().strip()
+    config = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))["project"]
+    version = (root / "VERSION").read_text(encoding="utf-8").strip()
     info = f"api_result_contracts-{version}.dist-info"
     lines = [
         f"Metadata-Version: {metadata_version}",
