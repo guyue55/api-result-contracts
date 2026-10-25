@@ -12,3 +12,5 @@
 | [GitHub 发布不可变性](https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/establish-provenance-and-integrity/prevent-release-changes) | 不移已发布 Tag、不覆盖资产，下载核对摘要和来源 | 文档规则与远端保护分别核验 |
 
 借鉴原通用办公模板的已验证工作流经验；不复制原有服务、数据、身份系统、业务配置或历史。Apache-2.0 来源与 NOTICE 保留。统一包装是本库的设计契约，不声称是 RFC 定义的唯一标准；HTTP 状态、JSON 和上游协议语义仍各自遵守。
+
+Python 第三方库专项规范、现状与示例对照见 [Python 打包工程评审](PYTHON_PACKAGING_REVIEW.md)。
