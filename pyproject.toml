@@ -35,7 +35,7 @@ Repository = "https://github.com/guyue55/api-result-contracts"
 Issues = "https://github.com/guyue55/api-result-contracts/issues"
 Changelog = "https://github.com/guyue55/api-result-contracts/blob/main/CHANGELOG.md"
 [dependency-groups]
-dev = ["pytest>=8,<10", "ruff>=0.12,<1", "mypy>=1.17,<2", "uvicorn>=0.35,<1", "httpx>=0.28.1,<1", "twine>=7,<8", "packaging>=25,<27"]
+dev = ["pytest>=8,<10", "ruff>=0.12,<1", "mypy>=1.17,<3", "uvicorn>=0.35,<1", "httpx>=0.28.1,<1", "twine>=7,<8", "packaging>=25,<27"]
 [tool.ruff]
 line-length = 100
 target-version = "py313"
