@@ -6,10 +6,10 @@
 
 ## v1.0.0 及后续发布
 
-1. 明确版本与兼容范围，更新 VERSION、CHANGELOG、pyproject.toml 和 uv.lock；releases/v版本.md。版本、协议版本与数据结构版本分别评估。
+1. 明确版本与兼容范围，更新唯一版本源 VERSION、CHANGELOG 和 uv.lock，pyproject.toml 的构建规则保持从 VERSION 派生；releases/v版本.md。版本、协议版本与数据结构版本分别评估。
 2. 本地完整检查；提交源代码，审查并合并 main。核对最终 main SHA 的远程 CI，不使用合并前旧制品。
 3. 在干净且已提交的源码执行 `uv run python scripts/release.py build --output dist/v版本`。候选与 source_commit、版本、SHA256SUMS 一致，目录必须不存在。
-4. 检查来源、许可、白名单、包内容和安装／生成体验。脚本不自动创建 Tag 或发布。
+4. 按 [Python 库工程规范](PACKAGING.md) 对该候选目录运行 Twine strict、wheel／sdist 元数据和资源检查、五种安装组合、最低直接依赖、完整功能／类型消费及无 Git 的源码包重建；检查来源、许可、白名单、包内容。`--wheel-dir` 必须指向本轮候选，不借用旧 dist。脚本不自动创建 Tag 或发布。
 5. 对同一 SHA 创建附注 Tag：`git tag -a v版本 <SHA> -m 'release(版本): 中文说明'`，仅推确切 Tag。发布权限须覆盖本次范围。
 6. 用 `gh release create v版本 --verify-tag --draft --notes-file releases/v版本.md` 创建草稿，按明确白名单上传候选；不要使用未经核验的 dist 通配符或覆盖上传。
 7. 审核草稿后正式发布；从公开 Release 下载到新目录，运行 `python3 scripts/release.py verify <目录> --commit <SHA>`；校验来源与每个资产摘要。
@@ -20,6 +20,6 @@ CI 只运行检查和构建，不自动部署或向 PyPI 传包。当前交付 P
 
 ## 创建新项目／依赖升级
 
-独立库保持语义版本和导入路径稳定。可选适配更新需同时验证 core-only 和 all-extras 安装；引入破坏性协议变更前先明确迁移。原办公模板仍固定自己的源码副本，未自动切换为本仓库发行包，避免影响已发布模板。
+独立库保持语义版本和导入路径稳定。可选适配更新需验证 core、三个单独 extra、all-extras、最低直接依赖以及安装后功能；引入破坏性协议变更前先明确迁移。原办公模板仍固定自己的源码副本，未自动切换为本仓库发行包，避免影响已发布模板。
 
 依赖升级应读取上游变更并审阅 lock 差异，先验证再合并。不要为了审计绿灯忽略漏洞；不适用项需有依据。

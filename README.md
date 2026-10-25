@@ -2,15 +2,15 @@
 
 通用接口契约库：统一业务JSON响应、严格类型、数字业务码及HTTP/MCP薄适配。核心只依赖Pydantic；不导入业务、数据库、身份产品或AI，不执行权限、事务、登录、任务或自动重试。
 
-发行名：`api-result-contracts`；导入名：`api_result_contracts`。Python3.13–3.14，锁定验证版本见 uv.lock；隔离轮包安装另验当前可解析组合，不能以元数据范围代替所有版本测试。自有源码采用 Apache-2.0；第三方依赖保留其原许可。发布状态以 GitHub Release 为准。
+发行名：`api-result-contracts`；导入名：`api_result_contracts`。Python>=3.13，持续验证3.13／3.14；未来解释器不预设拒绝安装，也不冒称已测试。锁定验证版本见 uv.lock；隔离轮包安装另验当前可解析组合，不能以元数据范围代替所有版本测试。自有源码采用 Apache-2.0；第三方依赖保留其原许可。发布状态以 GitHub Release 为准。
 
 [GitHub 发行包](https://github.com/guyue55/api-result-contracts/releases) · [贡献与检查](CONTRIBUTING.md) · [AI 约定](AGENTS.md) · [来源](docs/SOURCE.md) · [操作与发版](docs/OPERATIONS.md)
 
 ## 安装与依赖边界
 
 ```bash
-uv pip install /path/to/api_result_contracts-1.0.0-py3-none-any.whl
-uv pip install '/path/to/api_result_contracts-1.0.0-py3-none-any.whl[fastapi,httpx,mcp]'
+uv pip install /path/to/api_result_contracts-1.0.1-py3-none-any.whl
+uv pip install '/path/to/api_result_contracts-1.0.1-py3-none-any.whl[fastapi,httpx,mcp]'
 ```
 
 按需选择extra；核心不需要FastAPI、HTTPX、MCP或SQLAlchemy。wheel包含类型标记和通用码表；应用自己的码表由应用分发。应用锁依赖；库声明兼容范围。未承诺所有 AI 宿主或生产环境可用。
@@ -149,4 +149,4 @@ uv sync --frozen --all-extras
 uv run uvicorn examples.fastapi_app:app --host 127.0.0.1 --port 8901
 ```
 
-示例只有合成数据，不含身份认证或存储，不用于生产；POST `/api/v2/echo` 接受 `{"quantity":12}`。真实回环集成测试会使用独立随机端口验证同步／异步并发与错误路径。核心单独安装与 all-extras 的隔离安装检查见 `scripts/check_install.py`。发布到 GitHub 不等于已上传 PyPI。
+示例只有合成数据，不含身份认证或存储，不用于生产；POST `/api/v2/echo` 接受 `{"quantity":12}`。真实回环集成测试会使用独立随机端口验证同步／异步并发与错误路径。核心、单独 extras、最低直接依赖、完整轮包功能与源码包重建检查见 `scripts/check_install.py`；维护策略见 [Python 库工程规范](docs/PACKAGING.md)。发布到 GitHub 不等于已上传 PyPI。

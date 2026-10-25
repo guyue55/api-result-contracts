@@ -39,11 +39,11 @@ jobs:
           "$task_scan_dir/actionlint" -shellcheck= -pyflakes=
   quality:
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 15
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, windows-2025]
+        os: [ubuntu-24.04, windows-2025, macos-15]
         python: ["3.13", "3.14"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -65,7 +65,12 @@ jobs:
       - run: uv run mypy src tests/typing --check-untyped-defs
       - run: uv run pytest -q
       - run: uv build
-      - run: uv run python scripts/check_install.py
+      - run: uv run twine check --strict dist/api_result_contracts-*-py3-none-any.whl dist/api_result_contracts-*.tar.gz
+        shell: bash
+      - run: uv run python scripts/check_install.py --rebuild-sdist
+      - name: 最低直接依赖及单独可选功能
+        if: matrix.os == 'ubuntu-24.04'
+        run: uv run python scripts/check_install.py --minimum
       - name: 运行依赖漏洞检查
         if: matrix.os == 'ubuntu-24.04' && matrix.python == '3.13'
         run: |
